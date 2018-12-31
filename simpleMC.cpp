@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cmath>
+#include <random>
 #include "lib/Random1.h"
 using namespace std;
 
@@ -18,9 +19,12 @@ double SimpleMonteCarlo(double Expiry,
     double thisSpot;
     double runningSum = 0;
 
+    std::default_random_engine generator (123544);
+    std::normal_distribution<double> distribution(0.0, 1.0);
+
     for (unsigned long i = 0; i < NumberOfPaths; i++)
     {
-        double thisGaussian = GetOneGaussianByBoxMuller();
+        double thisGaussian = distribution(generator);
         thisSpot = movedSpot * exp(rootVariance*thisGaussian);
         double thisPayoff = thisSpot - Strike;
         thisPayoff = thisPayoff > 0 ? thisPayoff : 0;
@@ -44,6 +48,6 @@ int main() {
                                      100,
                                      0.4,
                                      0.03,
-                                     10000000);
+                                     5000000);
     cout << "The price is " << result;
 };

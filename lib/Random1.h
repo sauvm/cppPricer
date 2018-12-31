@@ -3,5 +3,6 @@
 
 double GetOneGaussianBySummation();
 double GetOneGaussianByBoxMuller();
+double GetGaussianByStdLib();
 
 #endif

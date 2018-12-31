@@ -1,6 +1,7 @@
 #include "Random1.h"
 #include <cstdlib>
 #include <cmath>
+#include <random>
 
 // the basic math functions should be in namespace std but aren't in VCPP6
 #if !defined(_MSC_VER)
@@ -18,6 +19,15 @@ double GetOneGaussianBySummation()
 
 	return result;
 
+}
+
+double GetGaussianByStdLib()
+{
+    std::default_random_engine generator;
+    std::normal_distribution<double> distribution(0.0, 1.0);
+    
+    double number = distribution(generator);
+    return number;
 }
 
 
