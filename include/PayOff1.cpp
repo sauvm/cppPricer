@@ -1,31 +1,30 @@
 #include "PayOff1.h"
 #include "MinMax.h"
 
-PayOff::PayOff(double Strike_, OptionType TheOptionsType_)
-:
-  Strike(Strike_), TheOptionsType(TheOptionsType_)
-  {
-  }
-double PayOff::operator()(double spot) const
+PayOffCall::PayOffCall(double Strike_) : Strike(Strike_)
 {
-    switch (TheOptionsType)
+}
+PayOffPut::PayOffPut(double Strike_) : Strike(Strike_)
+{
+}
+PayOffDigCall::PayOffDigCall(double Strike_) : Strike(Strike_)
+{
+}
+double PayOffCall::operator()(double Spot) const
+{
+    return max(Spot - Strike, 0.0);
+}
+double PayOffPut::operator()(double Spot) const
+{
+    return max(Strike - Spot, 0.0);
+}
+double PayOffDigCall::operator()(double Spot) const
+{
+    if ((Strike - Spot) > 0) 
     {
-    case call:
-        return max(spot - Strike, 0.0);
-
-    case put:
-        return max(Strike - spot, 0.0);
-
-    case digitalcall:
-        if ((Strike - spot) > 0) {
-            return 1;
-        }
-        else {
-            return 0;
-        }
-
-
-    default:
-        throw("Unknown options type found");
+        return 100;
+    }
+    else {
+        return 0;
     }
 }

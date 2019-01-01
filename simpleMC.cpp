@@ -42,11 +42,11 @@ double SimpleMonteCarlo(const PayOff& thePayOff,
 
 int main() {
 
-    PayOff callPayOff(120, PayOff::call);
-    PayOff putPayOff(120, PayOff::put);
-    PayOff digitalcallPayoff(120, PayOff::digitalcall);
+    PayOffCall thiscallPayoff(120);
+    PayOffPut  thisputPayoff(120);
+    PayOffDigCall thisDigCallPayoff(120);
 
-    double Cresult = SimpleMonteCarlo(callPayOff,
+    double Cresult = SimpleMonteCarlo(thiscallPayoff,
                                      1,
                                      100,
                                      0.4,
@@ -54,7 +54,7 @@ int main() {
                                      5000000);
     cout << "The price of a call is " << Cresult << "\n";
 
-    double Presult = SimpleMonteCarlo(putPayOff,
+    double Presult = SimpleMonteCarlo(thisputPayoff,
                                      1,
                                      100,
                                      0.4,
@@ -62,11 +62,11 @@ int main() {
                                      5000000);
     cout << "The price of a put is " << Presult << "\n";
 
-    double DCresult = SimpleMonteCarlo(digitalcallPayoff,
+    double DCresult = SimpleMonteCarlo(thisDigCallPayoff,
                                      1,
                                      100,
                                      0.4,
                                      0.03,
                                      5000000);
-    cout << "The price of a digital cal is " << DCresult;
+    cout << "The price of a digital call is " << DCresult;
 };
